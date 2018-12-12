@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+	      <script src="sa.js"></script>
+		  
+		  </head>
+		  <body><h1>Electricity Consumer Form</h1>
+		
+		  
+		  <form>
+		  
+		  Consumer No:
+		  <input type="number" name="consuno" required pattern=".{8,}" title="8 characters only" minlength="8"><br>
+		  Consumer Name: 
+		  <input type="text" name="consunam" required pattern="[A-Z][a-z]{4,}"><br>
+		  E-mail: <input type="email" name="email" required><br>
+		  Number of units: <input type="number" name="noofunits" required><br>
+		  <input type="submit" onclick="consumer()">calculate electricity charges and display<table border="2">
+		  
+		  
+		  
+</table></form></body></html>
