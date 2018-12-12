@@ -1,0 +1,34 @@
+CREATE OR REPLACE PROCEDURE TOTAL_BILL
+AS
+BILL_NO electricity_Bill.BillNo%TYPE;
+CONSUMER_NO electricity_Bill.consumerNo%TYPE;
+BILL_AMOUNT electricity_Bill.billAmount%TYPE;
+TOTAL electricity_Bill.billAmount%TYPE;
+BILL_PAID_DATE electricity_Bill.billPaidDate%TYPE;
+EXC EXCEPTION;
+BEGIN 
+	FOR TOT IN(SELECT BillNo,consumerNo,billAmount,billPaidDate
+			FROM electricity_Bill
+			where consumerNo=&consumerNo)
+	LOOP
+		BILL_NO := TOT.BillNo;
+		CONSUMER_NO := TOT.consumerNo;
+		BILL_AMOUNT := TOT.billamount;
+		BILL_PAID_DATE := TOT.billPaidDate;
+	END LOOP;
+	IF(BILL_AMOUNT>100)THEN
+		TOTAL := (200.96+(BILL_AMOUNT-100)*5.56);
+		DBMS_OUTPUT.PUT_LINE('TOTAL BILL IS  '||TOTAL);
+	ELSE
+		TOTAL := BILL_AMOUNT*2.96;
+		DBMS_OUTPUT.PUT_LINE('TOTAL BILL IS  '||TOTAL);
+	END IF;
+	DBMS_OUTPUT.PUT_LINE('BILL_NO   '||'CONSUMER_NO   '||'BILL_AMOUNT   '||'BILL_PAID_DATE   ');
+	DBMS_OUTPUT.PUT_LINE(BILL_NO||'   '||CONSUMER_NO||'   '||BILL_AMOUNT||'   '||BILL_PAID_DATE||'   ');
+		IF SQL%NOTFOUND THEN
+			RAISE EXC;
+		END IF;
+	EXCEPTION
+	WHEN EXC THEN
+		DBMS_OUTPUT.PUT_LINE('CONSUMER DOES NOT EXIST');
+END;	
